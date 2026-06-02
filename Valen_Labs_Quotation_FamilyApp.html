@@ -593,6 +593,11 @@ body {
         -webkit-print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
+
+    .header::before {
+        display: none !important;
+    }
+    
     
     body { 
         background: white !important; 
@@ -717,10 +722,12 @@ body {
     .pricing-grid { grid-template-columns: 1fr; }
     .client-section { grid-template-columns: 1fr; }
     .payment-section { grid-template-columns: 1fr; }
-    .header { flex-direction: column; gap: 20px; text-align: center; }
+
+    .header { grid-template-columns: 1fr; justify-items: center; gap: 20px; text-align: center; }
     .doc-info { text-align: center; }
     .section-header { flex-direction: column; align-items: flex-start; }
 }
+
 		/* Lightweight action bar */
     .top-actions{
         display:flex;
