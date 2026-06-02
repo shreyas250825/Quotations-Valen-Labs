@@ -9,4 +9,9 @@
   - [ ] Ensure print output stays clean and white
 - [ ] Re-open HTML and verify no emojis remain and button works
 
+## Hero/Header improvements
+- [x] Improve top hero/header layout (logo/title left, quotation info right)
+- [ ] Upgrade hero typography and card-like quotation info styling
+- [ ] Make hero background decoration print-safe
+
 
