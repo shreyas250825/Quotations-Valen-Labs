@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valen Labs - Service Quotation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --accent: #06b6d4;
+    --gold: #f59e0b;
+    --dark: #0f172a;
+    --darker: #020617;
+    --surface: #1e293b;
+    --surface-light: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --success: #22c55e;
+    --border: rgba(148, 163, 184, 0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.invoice-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--dark);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+    page-break-inside: avoid;
+}
+
+/* Header */
+.header {
+    background: var(--darker);
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    gap: 24px;
+    page-break-inside: avoid;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.brand-section { 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    gap: 18px;
+    text-align: center;
+    z-index: 1;
+}
+
+.logo-box {
+    width: 80px;
+    height: 80px;
+    background: var(--surface);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary);
+    position: relative;
+    box-shadow: 0 8px 24px rgba(14,165,233,0.15);
+    overflow: hidden;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.brand-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.doc-info {
+    text-align: center;
+    z-index: 1;
+}
+
+.doc-info .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+
+.doc-info .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.doc-info .status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 14px;
+    background: rgba(34,197,94,0.12);
+    color: var(--success);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid rgba(34,197,94,0.2);
+}
+
+/* Client Info */
+.client-section {
+    padding: 30px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    border-bottom: 1px solid var(--border);
+    page-break-inside: avoid;
+}
+
+.info-block h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+}
+
+.info-block .name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.info-block .detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.info-block .detail a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* Section Headers */
+.section-header {
+    padding: 30px 50px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+}
+
+.section-header .icon {
+    width: 36px;
+    height: 36px;
+    background: var(--surface);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 1px solid var(--border);
+}
+
+.section-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.section-header .subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-left: auto;
+}
+
+/* Pricing Cards */
+.pricing-grid {
+    padding: 0 50px 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    page-break-inside: avoid;
+}
+
+.price-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    page-break-inside: avoid;
+    overflow: visible;
+}
+
+.price-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.price-card.featured {
+    border-color: var(--gold);
+    background: var(--surface);
+    box-shadow: 0 0 30px rgba(245,158,11,0.08);
+}
+
+.price-card.featured::before {
+    content: '★ RECOMMENDED';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 4px 16px;
+    border-radius: 0 0 8px 8px;
+}
+
+.price-card .tier-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.price-card.featured .tier-name { color: var(--gold); }
+
+.price-card .price {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+}
+
+.price-card .price .currency { font-size: 18px; font-weight: 600; }
+
+.price-card .price-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+}
+
+.price-card .timeline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+}
+
+/* Feature List */
+.feature-list {
+    list-style: none;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 5px 0;
+    color: var(--text-muted);
+    page-break-inside: avoid;
+}
+
+.feature-list li.included { color: var(--text); }
+
+.feature-list li .check {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.feature-list li.included .check {
+    background: rgba(34,197,94,0.15);
+    color: var(--success);
+}
+
+.feature-list li .cross {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    background: rgba(239,68,68,0.1);
+    color: #ef4444;
+    flex-shrink: 0;
+}
+
+/* Tables */
+.table-section {
+    padding: 0 50px 30px;
+    page-break-inside: avoid;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    border-radius: 12px;
+    overflow: hidden;
+    page-break-inside: avoid;
+}
+
+.data-table thead {
+    background: var(--surface);
+}
+
+.data-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table th:last-child { text-align: right; }
+
+.data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+.data-table td:first-child { color: var(--text); font-weight: 500; }
+
+.data-table td:last-child { text-align: right; font-weight: 600; color: var(--primary); }
+
+.data-table tr:hover td { background: rgba(14,165,233,0.03); }
+
+/* Payment Terms */
+.payment-section {
+    padding: 0 50px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    page-break-inside: avoid;
+}
+
+.payment-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    page-break-inside: avoid;
+}
+
+.payment-card h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.milestone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    page-break-inside: avoid;
+}
+
+.milestone-item:last-child { border-bottom: none; }
+
+.milestone-item .phase {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.milestone-item .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.milestone-item .phase-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.milestone-item .percent {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* Notes */
+.notes-section {
+    padding: 0 50px 40px;
+    page-break-inside: avoid;
+}
+
+.note-box {
+    background: rgba(14,165,233,0.05);
+    border: 1px solid rgba(14,165,233,0.15);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    page-break-inside: avoid;
+}
+
+.note-box .note-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.note-box p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.note-box strong { color: var(--text); }
+
+/* Footer */
+.footer {
+    padding: 30px 50px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--darker);
+    page-break-inside: avoid;
+}
+
+.footer .contact {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.footer .contact a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.footer .validity {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Divider */
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 50px;
+    page-break-after: avoid;
+}
+
+/* Print Styles - Enhanced */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    
+    body { 
+        background: white !important; 
+        padding: 0 !important; 
+        margin: 0 !important;
+        color: #000 !important;
+    }
+    
+    .invoice-container { 
+        box-shadow: none !important; 
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        background: white !important;
+        border: none !important;
+    }
+    
+    .header,
+    .client-section,
+    .section-header,
+    .pricing-grid,
+    .table-section,
+    .payment-section,
+    .notes-section,
+    .footer {
+        page-break-inside: avoid !important;
+        overflow: visible !important;
+    }
+    
+    .price-card,
+    .payment-card,
+    .note-box {
+        page-break-inside: avoid !important;
+        overflow: visible !important;
+    }
+    
+    .feature-list li {
+        page-break-inside: avoid !important;
+    }
+    
+    .data-table {
+        page-break-inside: avoid !important;
+    }
+    
+    /* Hide interactive elements in print */
+    .hero-actions button,
+    button,
+    a[target="_blank"]::after,
+    input,
+    select,
+    textarea {
+        display: none !important;
+    }
+    
+    /* Ensure proper spacing */
+    .divider {
+        page-break-after: auto !important;
+        margin: 10px 0 !important;
+    }
+    
+    /* Backgrounds and colors */
+    .header {
+        background: white !important;
+        border-color: #ddd !important;
+    }
+    
+    .client-section {
+        background: white !important;
+        border-color: #ddd !important;
+    }
+    
+    .price-card,
+    .payment-card,
+    .stat-card {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        color: #000 !important;
+    }
+    
+    .section-header .icon {
+        background: #f5f5f5 !important;
+        border-color: #ddd !important;
+    }
+    
+    .data-table thead {
+        background: #f5f5f5 !important;
+    }
+    
+    .note-box {
+        background: #f0f0f0 !important;
+        border-color: #ccc !important;
+    }
+    
+    .footer {
+        background: white !important;
+        border-top-color: #ddd !important;
+    }
+    
+    /* Text colors for print */
+    h1, h2, h3,
+    .brand-text h1,
+    .info-block .name,
+    .milestone-item .phase-name,
+    .price-card .tier-name,
+    .section-header h2 {
+        color: #000 !important;
+    }
+    
+    .text-muted,
+    .text-dim,
+    .doc-info .label,
+    .section-header .subtitle {
+        color: #666 !important;
+    }
+    
+    .primary {
+        color: #0284c7 !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .client-section { grid-template-columns: 1fr; }
+    .payment-section { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 20px; text-align: center; }
+    .doc-info { text-align: center; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="invoice-container">
+
+<!-- Header -->
+<div class="header">
+    <div class="brand-section">
+        <div class="logo-box">
+            <img src="Valen Labs Logo New.png" alt="Valen Labs Logo">
+        </div>
+        <div class="brand-text">
+            <h1>VALEN LABS</h1>
+            <p>Technology Solutions</p>
+        </div>
+    </div>
+    <div class="doc-info">
+        <div class="label">Quotation #</div>
+        <div class="value">VL-2026-0602</div>
+        <div class="label" style="margin-top:10px">Date</div>
+        <div class="value">June 2, 2026</div>
+        <div class="status">Valid for 30 Days</div>
+    </div>
+</div>
+
+<!-- Client Info -->
+<div class="client-section">
+    <div class="info-block">
+        <h3>From</h3>
+        <div class="name">Valen Labs</div>
+        <div class="detail">
+            <a href="https://valenlabs.in">valenlabs.in</a><br>
+            <a href="mailto:shreyas@valenlabs.in">shreyas@valenlabs.in</a>
+        </div>
+    </div>
+    <div class="info-block">
+        <h3>To</h3>
+        <div class="name">Family Online Social Media</div>
+        <div class="detail">
+            Attention: Ashok Kumar<br>
+            Project: Family Social Networking Platform<br>
+            Milestone #1 - Website & Mobile App Development
+        </div>
+    </div>
+</div>
+
+<!-- Website Packages -->
+<div class="section-header">
+    <div class="icon">🌐</div>
+    <h2>Website Development Packages</h2>
+    <span class="subtitle">Full-stack web application</span>
+</div>
+
+<div class="pricing-grid">
+    <!-- Starter -->
+    <div class="price-card">
+        <div class="tier-name">Starter Website</div>
+        <div class="price"><span class="currency">₹</span>30,000</div>
+        <div class="price-note">One-time development cost</div>
+        <div class="timeline">⏱ 15-20 Days</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Responsive Design</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Basic Feed System</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li><span class="cross">✕</span> Public Feed</li>
+            <li><span class="cross">✕</span> Photo Albums</li>
+            <li><span class="cross">✕</span> Event Calendar</li>
+            <li><span class="cross">✕</span> Notifications</li>
+            <li><span class="cross">✕</span> Messaging System</li>
+            <li><span class="cross">✕</span> Search Functionality</li>
+            <li class="included"><span class="check">✓</span> Admin Dashboard (Basic)</li>
+            <li><span class="cross">✕</span> API Development</li>
+            <li class="included"><span class="check">✓</span> Basic Security</li>
+            <li><span class="cross">✕</span> Analytics Dashboard</li>
+            <li><span class="cross">✕</span> User Management Tools</li>
+            <li><span class="cross">✕</span> Role-Based Access</li>
+            <li><span class="cross">✕</span> Activity Logs</li>
+            <li><span class="cross">✕</span> Database Optimization</li>
+            <li><span class="cross">✕</span> Cloud Deployment</li>
+            <li><span class="cross">✕</span> Scalability Planning</li>
+            <li><span class="cross">✕</span> Future Expansion</li>
+            <li><span class="cross">✕</span> Performance Optimization</li>
+            <li><span class="cross">✕</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 1 Month</li>
+        </ul>
+    </div>
+
+    <!-- Professional -->
+    <div class="price-card featured">
+        <div class="tier-name">Professional Website ⭐</div>
+        <div class="price"><span class="currency">₹</span>1,00,000</div>
+        <div class="price-note">Complete production-ready package</div>
+        <div class="timeline">⏱ 2 Months</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Responsive Design</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Basic Feed System</li>
+            <li class="included"><span class="check">✓</span> Public Feed</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li class="included"><span class="check">✓</span> Photo Albums</li>
+            <li class="included"><span class="check">✓</span> Event Calendar</li>
+            <li class="included"><span class="check">✓</span> Notifications</li>
+            <li class="included"><span class="check">✓</span> Messaging System</li>
+            <li class="included"><span class="check">✓</span> Search Functionality</li>
+            <li class="included"><span class="check">✓</span> Admin Dashboard (Advanced)</li>
+            <li class="included"><span class="check">✓</span> Full API Development</li>
+            <li class="included"><span class="check">✓</span> Standard Security</li>
+            <li class="included"><span class="check">✓</span> Basic Analytics</li>
+            <li class="included"><span class="check">✓</span> User Management Tools</li>
+            <li class="included"><span class="check">✓</span> Role-Based Access</li>
+            <li><span class="cross">✕</span> Activity Logs</li>
+            <li class="included"><span class="check">✓</span> Basic DB Optimization</li>
+            <li class="included"><span class="check">✓</span> Cloud Deployment</li>
+            <li class="included"><span class="check">✓</span> Basic Scalability</li>
+            <li><span class="cross">✕</span> Future Expansion</li>
+            <li class="included"><span class="check">✓</span> Performance Optimization</li>
+            <li><span class="cross">✕</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 2 Months</li>
+        </ul>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="price-card">
+        <div class="tier-name">Enterprise Website</div>
+        <div class="price"><span class="currency">₹</span>2,00,000+</div>
+        <div class="price-note">Scalable & enterprise-grade</div>
+        <div class="timeline">⏱ 3-6 Months</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Responsive Design</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Basic Feed System</li>
+            <li class="included"><span class="check">✓</span> Public Feed</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li class="included"><span class="check">✓</span> Photo Albums</li>
+            <li class="included"><span class="check">✓</span> Event Calendar</li>
+            <li class="included"><span class="check">✓</span> Notifications</li>
+            <li class="included"><span class="check">✓</span> Messaging System</li>
+            <li class="included"><span class="check">✓</span> Search Functionality</li>
+            <li class="included"><span class="check">✓</span> Admin Dashboard (Enterprise)</li>
+            <li class="included"><span class="check">✓</span> Enterprise API Scale</li>
+            <li class="included"><span class="check">✓</span> Advanced Security</li>
+            <li class="included"><span class="check">✓</span> Advanced Analytics</li>
+            <li class="included"><span class="check">✓</span> User Management Tools</li>
+            <li class="included"><span class="check">✓</span> Role-Based Access</li>
+            <li class="included"><span class="check">✓</span> Activity Logs</li>
+            <li class="included"><span class="check">✓</span> Advanced DB Optimization</li>
+            <li class="included"><span class="check">✓</span> Cloud Deployment</li>
+            <li class="included"><span class="check">✓</span> Advanced Scalability</li>
+            <li class="included"><span class="check">✓</span> Future Expansion Architecture</li>
+            <li class="included"><span class="check">✓</span> Performance Optimization</li>
+            <li class="included"><span class="check">✓</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 6 Months</li>
+        </ul>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Mobile App Packages -->
+<div class="section-header">
+    <div class="icon">📱</div>
+    <h2>Mobile App Development Packages</h2>
+    <span class="subtitle">Native Android application</span>
+</div>
+
+<div class="pricing-grid">
+    <!-- Starter App -->
+    <div class="price-card">
+        <div class="tier-name">Starter App</div>
+        <div class="price"><span class="currency">₹</span>30,000</div>
+        <div class="price-note">One-time development cost</div>
+        <div class="timeline">⏱ 15-20 Days</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Android App</li>
+            <li class="included"><span class="check">✓</span> Modern UI/UX</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Basic Feed Integration</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li><span class="cross">✕</span> Push Notifications</li>
+            <li><span class="cross">✕</span> Messaging System</li>
+            <li><span class="cross">✕</span> Event Calendar</li>
+            <li><span class="cross">✕</span> Media Gallery</li>
+            <li class="included"><span class="check">✓</span> Basic API Integration</li>
+            <li><span class="cross">✕</span> Offline Data Storage</li>
+            <li><span class="cross">✕</span> Role-Based Features</li>
+            <li><span class="cross">✕</span> Advanced Security</li>
+            <li><span class="cross">✕</span> Analytics Integration</li>
+            <li><span class="cross">✕</span> Performance Optimization</li>
+            <li><span class="cross">✕</span> Scalability Planning</li>
+            <li><span class="cross">✕</span> Play Store Deployment</li>
+            <li><span class="cross">✕</span> Future Upgrade Architecture</li>
+            <li><span class="cross">✕</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 1 Month</li>
+        </ul>
+    </div>
+
+    <!-- Professional App -->
+    <div class="price-card featured">
+        <div class="tier-name">Professional App ⭐</div>
+        <div class="price"><span class="currency">₹</span>1,00,000</div>
+        <div class="price-note">Complete production-ready package</div>
+        <div class="timeline">⏱ 2 Months</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Android App</li>
+            <li class="included"><span class="check">✓</span> Modern UI/UX</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Advanced Feed Integration</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li class="included"><span class="check">✓</span> Push Notifications</li>
+            <li class="included"><span class="check">✓</span> Messaging System</li>
+            <li class="included"><span class="check">✓</span> Event Calendar</li>
+            <li class="included"><span class="check">✓</span> Media Gallery</li>
+            <li class="included"><span class="check">✓</span> Full API Integration</li>
+            <li class="included"><span class="check">✓</span> Basic Offline Storage</li>
+            <li class="included"><span class="check">✓</span> Role-Based Features</li>
+            <li class="included"><span class="check">✓</span> Standard Security</li>
+            <li class="included"><span class="check">✓</span> Basic Analytics</li>
+            <li class="included"><span class="check">✓</span> Performance Optimization</li>
+            <li class="included"><span class="check">✓</span> Basic Scalability</li>
+            <li class="included"><span class="check">✓</span> Play Store Deployment</li>
+            <li><span class="cross">✕</span> Future Upgrade Architecture</li>
+            <li><span class="cross">✕</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 2 Months</li>
+        </ul>
+    </div>
+
+    <!-- Enterprise App -->
+    <div class="price-card">
+        <div class="tier-name">Enterprise App</div>
+        <div class="price"><span class="currency">₹</span>2,00,000+</div>
+        <div class="price-note">Scalable & enterprise-grade</div>
+        <div class="timeline">⏱ 3-6 Months</div>
+        <ul class="feature-list">
+            <li class="included"><span class="check">✓</span> Android App</li>
+            <li class="included"><span class="check">✓</span> Modern UI/UX</li>
+            <li class="included"><span class="check">✓</span> Login & Registration</li>
+            <li class="included"><span class="check">✓</span> User Profiles</li>
+            <li class="included"><span class="check">✓</span> Family Profiles</li>
+            <li class="included"><span class="check">✓</span> Enterprise Feed Integration</li>
+            <li class="included"><span class="check">✓</span> Photo Uploads</li>
+            <li class="included"><span class="check">✓</span> Push Notifications</li>
+            <li class="included"><span class="check">✓</span> Messaging System</li>
+            <li class="included"><span class="check">✓</span> Event Calendar</li>
+            <li class="included"><span class="check">✓</span> Media Gallery</li>
+            <li class="included"><span class="check">✓</span> Enterprise API Scale</li>
+            <li class="included"><span class="check">✓</span> Advanced Offline Storage</li>
+            <li class="included"><span class="check">✓</span> Role-Based Features</li>
+            <li class="included"><span class="check">✓</span> Advanced Security</li>
+            <li class="included"><span class="check">✓</span> Advanced Analytics</li>
+            <li class="included"><span class="check">✓</span> Performance Optimization</li>
+            <li class="included"><span class="check">✓</span> Advanced Scalability</li>
+            <li class="included"><span class="check">✓</span> Play Store Deployment</li>
+            <li class="included"><span class="check">✓</span> Future Upgrade Architecture</li>
+            <li class="included"><span class="check">✓</span> Priority Support</li>
+            <li class="included"><span class="check">✓</span> Post-Launch: 6 Months</li>
+        </ul>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Annual Maintenance -->
+<div class="section-header">
+    <div class="icon">🔧</div>
+    <h2>Annual Maintenance & Support</h2>
+    <span class="subtitle">Ongoing service plans</span>
+</div>
+
+<div class="table-section">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Service Plan</th>
+                <th style="text-align:right">Monthly Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Basic Maintenance</td>
+                <td>₹5,000/month</td>
+            </tr>
+            <tr>
+                <td>Standard Maintenance</td>
+                <td>₹10,000/month</td>
+            </tr>
+            <tr>
+                <td>Enterprise Maintenance</td>
+                <td>₹15,000+/month</td>
+            </tr>
+            <tr>
+                <td>New Features & Enhancements</td>
+                <td>Quoted Separately</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="divider"></div>
+
+<!-- Payment Terms -->
+<div class="section-header">
+    <div class="icon">💳</div>
+    <h2>Payment Terms</h2>
+    <span class="subtitle">Milestone-based billing</span>
+</div>
+
+<div class="payment-section">
+    <div class="payment-card">
+        <h3>Milestone Breakdown</h3>
+        <div class="milestone-item">
+            <div class="phase">
+                <div class="dot"></div>
+                <span class="phase-name">Project Initiation</span>
+            </div>
+            <span class="percent">40%</span>
+        </div>
+        <div class="milestone-item">
+            <div class="phase">
+                <div class="dot"></div>
+                <span class="phase-name">Midway Review</span>
+            </div>
+            <span class="percent">30%</span>
+        </div>
+        <div class="milestone-item">
+            <div class="phase">
+                <div class="dot"></div>
+                <span class="phase-name">Final Delivery</span>
+            </div>
+            <span class="percent">30%</span>
+        </div>
+    </div>
+    <div class="payment-card">
+        <h3>Important Notes</h3>
+        <div class="milestone-item" style="border:none; padding:8px 0;">
+            <span class="phase-name" style="font-size:12px; color:var(--text-muted); line-height:1.8;">
+                The <strong style="color:var(--gold)">₹2,00,000</strong> package is designed as the complete production-ready package with maximum launch features.<br><br>
+                Enterprise packages focus on <strong style="color:var(--text)">scalability, optimization, long-term support, security, analytics, and future expansion</strong> rather than just adding more screens or modules.
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Note -->
+<div class="notes-section">
+    <div class="note-box">
+        <div class="note-icon">ℹ️</div>
+        <p>
+            <strong>About this Quotation:</strong> This proposal is prepared based on the requirements outlined in the Family Online Social Media project brief (Milestone #1). All prices are exclusive of GST. Hosting, domain, and third-party API costs (if any) will be billed separately. The timeline begins upon receipt of the initial payment and all required project assets. For any clarifications, please reach out to <a href="mailto:shreyas@valenlabs.in" style="color:var(--primary)">shreyas@valenlabs.in</a>.
+        </p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="contact">
+        <strong style="color:var(--text)">Valen Labs</strong> &nbsp;|&nbsp; 
+        <a href="https://valenlabs.in">valenlabs.in</a> &nbsp;|&nbsp; 
+        <a href="mailto:shreyas@valenlabs.in">shreyas@valenlabs.in</a>
+    </div>
+    <div class="validity">
+        Quotation Valid Until: July 2, 2026
+    </div>
+</div>
+
+</div>
+</body>
+</html>
